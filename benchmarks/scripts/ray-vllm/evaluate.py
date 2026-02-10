@@ -46,8 +46,8 @@ def main():
         max_logprobs=model_config.max_logprobs,
         gpu_memory_utilization=infra_config.gpu_memory_utilization,
         tensor_parallel_size=infra_config.tensor_parallel_size,
-        ray_address=infra_config.ray_address,  # Ray cluster address
-        allow_cross_node_tensor_parallel=infra_config.allow_cross_node_tensor_parallel,  # Cross-node TP
+        ray_address=infra_config.ray_address,  # Local Ray runtime (single-node mode)
+        allow_cross_node_tensor_parallel=infra_config.allow_cross_node_tensor_parallel,  # Deprecated in single-node mode
         num_gpus=infra_config.num_gpus,
         gpu_ids=infra_config.gpu_ids,
         force_enable_optimizations=inference_config.force_enable_optimizations,

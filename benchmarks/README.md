@@ -8,20 +8,24 @@
 ```bash
 cd benchmarks
 
-conda create -n benchmark python=3.10 
-conda activate benchmark
-pip install uv
-uv pip install torch==2.5.1 transformers==4.52.0 vllm==0.7.3
+python -m venv .venv
+# Linux/macOS
+source .venv/bin/activate
+# Windows PowerShell
+# .\.venv\Scripts\Activate.ps1
+
+python -m pip install --upgrade pip
+# If your environment already has torch 2.8.x (CUDA 12.8), keep it as-is.
+# Otherwise install torch/torchaudio/torchvision 2.8.x for your CUDA build first.
 pip install -r requirements.txt
 pip install -e . --no-deps --no-build-isolation
 ```
 
-### Step 2: Start Ray Cluster (Optional)
+### Step 2: Start Local Ray (Optional)
 
 ```bash
-# Initialize multi-node multi-GPU environment
-# Skip this step if using single-node multi-GPU setup
-bash scripts/init_ray_cluster.sh
+# Single-node multi-GPU runtime
+bash scripts/init_ray.sh
 ```
 
 

@@ -635,56 +635,27 @@ class RayMixin:
     """
     
     def _initialize_ray_cluster(self):
-        """Initialize Ray cluster connection"""
+        """Initialize local Ray runtime for single-node benchmark."""
         import ray
 
         if ray.is_initialized():
             console.print(
-                "  ✓ Ray already initialized",
+                "  Ray already initialized",
                 style=success_style,
             )
             return
 
         console.print(
-            "  Initializing Ray cluster connection...",
+            "  Initializing local Ray runtime...",
             style=subhead_style_2,
         )
 
-        # Determine connection mode
-        if self.ray_address == "local":
-            # Local mode (single machine)
-            ray.init(ignore_reinit_error=True)
-            console.print(
-                "  ✓ Ray initialized in local mode",
-                style=success_style,
-            )
-        elif self.ray_address == "auto":
-            # Auto-detect mode
-            try:
-                ray.init(address="auto", ignore_reinit_error=True)
-                console.print(
-                    "  ✓ Ray connected to existing cluster (auto-detected)",
-                    style=success_style,
-                )
-            except:
-                # Fallback to local mode
-                console.print(
-                    "  [yellow]No existing cluster found, initializing local mode...[/yellow]",
-                    style=warning_style,
-                )
-                ray.init(ignore_reinit_error=True)
-                console.print(
-                    "  ✓ Ray initialized in local mode",
-                    style=success_style,
-                )
-        else:
-            # Specific address
-            ray.init(address=self.ray_address, ignore_reinit_error=True)
-            console.print(
-                f"  ✓ Ray connected to cluster at {self.ray_address}",
-                style=success_style,
-            )
-    
+        ray.init(ignore_reinit_error=True)
+        console.print(
+            "  Ray initialized in local mode",
+            style=success_style,
+        )
+
     def _determine_gpu_ids_from_cluster(self) -> List[Dict[str, Any]]:
         """
         Determine GPU resources from Ray cluster

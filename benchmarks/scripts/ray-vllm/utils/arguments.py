@@ -53,12 +53,12 @@ class InfrastructureConfig:
     )
     allow_cross_node_tensor_parallel: bool = field(
         default=False,
-        metadata={"help": "Allow tensor parallelism across different nodes (not recommended due to network latency)"}
+        metadata={"help": "Deprecated in benchmark single-node mode. Kept only for backward compatibility."}
     )
-    # Ray cluster
+    # Ray runtime
     ray_address: Optional[str] = field(
-        default="auto",
-        metadata={"help": "Ray cluster address: 'auto' (auto-detect), 'local' (single machine), or 'ray://head_ip:10001' (specific cluster address)"}
+        default="local",
+        metadata={"help": "Single-node benchmark mode uses local Ray runtime. Keep as 'local'."}
     )
 
 
